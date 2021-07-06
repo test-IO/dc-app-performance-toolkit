@@ -9,13 +9,8 @@ from util.conf import JIRA_SETTINGS
 
 def app_accept_testio_bug(webdriver, datasets):
     page = BasePage(webdriver)
-    project_key = datasets['project_key']
-    issue_key = datasets['custom_issue_key']
-
     @print_timing("selenium_app_accept_testio_bug")
     def measure():
-        view_testio_specific_bug(page, project_key, issue_key)
-
         @print_timing("selenium_app_accept_testio_bug:accept_testio_bug")
         def sub_measure():
             page.wait_until_visible((By.CLASS_NAME, ".test-io-accept-button")).click()  # Accept testio bug
@@ -24,13 +19,8 @@ def app_accept_testio_bug(webdriver, datasets):
 
 def app_reject_testio_bug(webdriver, datasets):
     page = BasePage(webdriver)
-    project_key = datasets['project_key']
-    issue_key = datasets['custom_issue_key']
-
     @print_timing("selenium_reject_testio_bug")
     def measure():
-        view_testio_specific_bug(page, project_key, issue_key)
-
         @print_timing("selenium_reject_testio_bug:reject_testio_bug")
         def sub_measure():
             page.wait_until_visible((By.CLASS_NAME, ".test-io-reject-button")).click()  # Reject testio bug
@@ -39,13 +29,8 @@ def app_reject_testio_bug(webdriver, datasets):
 
 def app_change_severity_testio_bug(webdriver, datasets):
     page = BasePage(webdriver)
-    project_key = datasets['project_key']
-    issue_key = datasets['custom_issue_key']
-
     @print_timing("selenium_app_change_severity_testio_bug")
     def measure():
-        view_testio_specific_bug(page, project_key, issue_key)
-
         @print_timing("selenium_app_change_severity_testio_bug:change_testio_bug_severity")
         def sub_measure():
             page.wait_until_visible((By.CLASS_NAME, ".test-io-reject-button")).click()  # Change testio bug severity
@@ -88,7 +73,9 @@ def app_testio_bug_fix_confirmation(webdriver, datasets):
         sub_measure()
     measure()
 
-def view_testio_specific_bug(page, project_key, issue_key):
+def view_testio_specific_bug(webdriver, datasets):
+    page = BasePage(webdriver)
+    project_key = datasets['project_key']
     @print_timing("selenium_app_custom_action:view_testio_bugs")
     def sub_measure():
         page.go_to_url(f"{JIRA_SETTINGS.server_url}/projects/{project_key}/test-io-issues")
