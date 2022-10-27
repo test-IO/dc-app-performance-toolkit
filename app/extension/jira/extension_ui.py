@@ -8,37 +8,45 @@ from selenium_ui.jira.pages.pages import Login
 from util.conf import JIRA_SETTINGS
 
 
-def app_specific_action(webdriver, datasets):
+def app_accept_testio_bug(webdriver):
     page = BasePage(webdriver)
-    if datasets['custom_issues']:
-        issue_key = datasets['custom_issue_key']
-
-    # To run action as specific user uncomment code bellow.
-    # NOTE: If app_specific_action is running as specific user, make sure that app_specific_action is running
-    # just before test_2_selenium_z_log_out action
-    #
-    # @print_timing("selenium_app_specific_user_login")
-    # def measure():
-    #     def app_specific_user_login(username='admin', password='admin'):
-    #         login_page = Login(webdriver)
-    #         login_page.delete_all_cookies()
-    #         login_page.go_to()
-    #         login_page.set_credentials(username=username, password=password)
-    #         if login_page.is_first_login():
-    #             login_page.first_login_setup()
-    #         if login_page.is_first_login_second_page():
-    #             login_page.first_login_second_page_setup()
-    #         login_page.wait_for_page_loaded()
-    #     app_specific_user_login(username='admin', password='admin')
-    # measure()
-
-    @print_timing("selenium_app_custom_action")
+    project_key = 'AANES'
+    page.go_to_url(f"{JIRA_SETTINGS.server_url}/projects/{project_key}/test-io-issues")
+    @print_timing("selenium_app_accept_testio_bug")
     def measure():
-        @print_timing("selenium_app_custom_action:view_issue")
+        @print_timing("selenium_app_accept_testio_bug:accept_testio_bug")
         def sub_measure():
-            page.go_to_url(f"{JIRA_SETTINGS.server_url}/browse/{issue_key}")
-            page.wait_until_visible((By.ID, "summary-val"))  # Wait for summary field visible
-            page.wait_until_visible((By.ID, "ID_OF_YOUR_APP_SPECIFIC_UI_ELEMENT"))  # Wait for you app-specific UI element by ID selector
+            page.wait_until_visible((By.XPATH, "//div[contains(@class, 'test-io-accept-button')]"), 60).click()  # Accept testio bug
         sub_measure()
     measure()
+
+def app_change_severity_testio_bug(webdriver):
+    page = BasePage(webdriver)
+    project_key = 'AANES'
+    page.go_to_url(f"{JIRA_SETTINGS.server_url}/projects/{project_key}/test-io-issues")
+    @print_timing("selenium_app_change_severity_testio_bug")
+    def measure():
+        @print_timing("selenium_app_change_severity_testio_bug:change_testio_bug_severity")
+        def sub_measure():
+            page.wait_until_visible((By.ID, "test-io-change-severity-button"), 60).click()  # Change testio bug severity
+            page.wait_until_visible((By.ID, "new-severity-selector-input"), 60).click()
+            page.wait_until_visible((By.CLASS_NAME, "aui-select-suggestion"), 60).click()
+            page.wait_until_visible((By.ID, "change_issue_severity_submit"), 60).click()
+        sub_measure()
+    measure()
+
+def view_testio_specific_bug(webdriver):
+    page = BasePage(webdriver)
+    project_key = 'AANES'
+    issue_key = 1
+    @print_timing("selenium_app_custom_action:view_testio_bugs")
+    def sub_measure():
+        page.go_to_url(f"{JIRA_SETTINGS.server_url}/projects/{project_key}/test-io-issues")
+        page.wait_until_visible((By.CLASS_NAME, "test-io-issue"), 60)  # Wait for you test-io-issues-list UI element by ID selector
+    sub_measure()
+
+    @print_timing("selenium_app_custom_action:open_specific_testio_bug")
+    def sub_measure():
+        page.wait_until_visible((By.CLASS_NAME, "test-io-issue"), 60).click()  # Open specific testio bug
+    sub_measure()
 

@@ -61,10 +61,14 @@ Write your custom selenium scripts in `app/extension/jira/extension_ui.py`.
 Refer to `app/selenium_ui/jira/modules.py` for examples.
 """
 
+def test_1_selenium_view_testio_specific_bug(jira_webdriver, jira_screen_shots):
+    extension_ui.view_testio_specific_bug(jira_webdriver)
 
-# def test_1_selenium_custom_action(jira_webdriver, jira_datasets, jira_screen_shots):
-#     extension_ui.app_specific_action(jira_webdriver, jira_datasets)
+def test_1_selenium_change_severity_testio_bug(jira_webdriver, jira_screen_shots):
+    extension_ui.app_change_severity_testio_bug(jira_webdriver)
 
+def test_1_selenium_accept_testio_bug(jira_webdriver, jira_screen_shots):
+     extension_ui.app_accept_testio_bug(jira_webdriver)
 
 # this action should be the last one
 def test_2_selenium_z_log_out(jira_webdriver, jira_datasets, jira_screen_shots):
