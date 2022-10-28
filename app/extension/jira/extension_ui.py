@@ -10,7 +10,7 @@ from util.conf import JIRA_SETTINGS
 
 def app_accept_testio_bug(webdriver):
     page = BasePage(webdriver)
-    project_key = 'AANES'
+    project_key = 'AASSS'
     page.go_to_url(f"{JIRA_SETTINGS.server_url}/projects/{project_key}/test-io-issues")
     @print_timing("selenium_app_accept_testio_bug")
     def measure():
@@ -22,7 +22,7 @@ def app_accept_testio_bug(webdriver):
 
 def app_change_severity_testio_bug(webdriver):
     page = BasePage(webdriver)
-    project_key = 'AANES'
+    project_key = 'AASSS'
     page.go_to_url(f"{JIRA_SETTINGS.server_url}/projects/{project_key}/test-io-issues")
     @print_timing("selenium_app_change_severity_testio_bug")
     def measure():
@@ -37,7 +37,7 @@ def app_change_severity_testio_bug(webdriver):
 
 def view_testio_specific_bug(webdriver):
     page = BasePage(webdriver)
-    project_key = 'AANES'
+    project_key = 'AASSS'
     issue_key = 1
     @print_timing("selenium_app_custom_action:view_testio_bugs")
     def sub_measure():
