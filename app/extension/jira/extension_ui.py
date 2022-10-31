@@ -20,18 +20,16 @@ def app_accept_testio_bug(webdriver):
         sub_measure()
     measure()
 
-def app_change_severity_testio_bug(webdriver):
+def app_send_request_testio_bug(webdriver):
     page = BasePage(webdriver)
     project_key = 'AASSS'
     page.go_to_url(f"{JIRA_SETTINGS.server_url}/projects/{project_key}/test-io-issues")
     @print_timing("selenium_app_change_severity_testio_bug")
     def measure():
-        @print_timing("selenium_app_change_severity_testio_bug:change_testio_bug_severity")
+        @print_timing("selenium_app_change_severity_testio_bug:testio_bug_send_request")
         def sub_measure():
-            page.wait_until_visible((By.ID, "test-io-change-severity-button"), 60).click()  # Change testio bug severity
-            page.wait_until_visible((By.ID, "new-severity-selector-input"), 60).click()
-            page.wait_until_visible((By.CLASS_NAME, "aui-select-suggestion"), 60).click()
-            page.wait_until_visible((By.ID, "change_issue_severity_submit"), 60).click()
+            page.wait_until_visible((By.XPATH, "//div[contains(@class, 'send_request_button')]"), 60).click()  # Accept testio bug
+            page.wait_until_visible((By.ID, "send_request_submit"), 60).click()
         sub_measure()
     measure()
 

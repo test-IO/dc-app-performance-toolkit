@@ -64,8 +64,8 @@ Refer to `app/selenium_ui/jira/modules.py` for examples.
 def test_1_selenium_view_testio_specific_bug(jira_webdriver, jira_screen_shots):
     extension_ui.view_testio_specific_bug(jira_webdriver)
 
-def test_1_selenium_change_severity_testio_bug(jira_webdriver, jira_screen_shots):
-    extension_ui.app_change_severity_testio_bug(jira_webdriver)
+def test_1_selenium_send_request_testio_bug(jira_webdriver, jira_screen_shots):
+    extension_ui.app_send_request_testio_bug(jira_webdriver)
 
 def test_1_selenium_accept_testio_bug(jira_webdriver, jira_screen_shots):
      extension_ui.app_accept_testio_bug(jira_webdriver)
