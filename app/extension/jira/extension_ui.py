@@ -42,9 +42,3 @@ def view_testio_specific_bug(webdriver):
         page.go_to_url(f"{JIRA_SETTINGS.server_url}/projects/{project_key}/test-io-issues")
         page.wait_until_visible((By.CLASS_NAME, "test-io-issue"), 60)  # Wait for you test-io-issues-list UI element by ID selector
     sub_measure()
-
-    @print_timing("selenium_app_custom_action:open_specific_testio_bug")
-    def sub_measure():
-        page.wait_until_visible((By.CLASS_NAME, "test-io-issue"), 60).click()  # Open specific testio bug
-    sub_measure()
-
